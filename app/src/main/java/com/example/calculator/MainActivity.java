@@ -13,11 +13,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView tv_result;
     private final static String TAG = "MainActivity";
-    private String operator = "";
-    private String firstNum = "";
-    private String nextNum = "";
-    private String result = "";
-    private String showText = "";
+    private String operator="";
+    private String firstNum="";
+    private String nextNum="";
+    private String result="";
+    private String showText="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,13 +156,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // calculate and return true if being successful or false if being failed
     private boolean caculate() {
-        if (operator.equals("＋")) { // add
-            result = String.valueOf(CalculatingProcess.add(firstNum, nextNum));
-        } else if (operator.equals("－")) { // minus
+        Log.d(TAG, "operator=" + operator);
+        if (operator.equals("+")) { // add
+            result = CalculatingProcess.add(firstNum, nextNum);
+        } else if (operator.equals("-")) { // minus
             result = String.valueOf(CalculatingProcess.sub(firstNum, nextNum));
-        } else if (operator.equals("×")) { // multiply
+        } else if (operator.equals("*")) { // multiply
             result = String.valueOf(CalculatingProcess.mul(firstNum, nextNum));
-        } else if (operator.equals("÷")) { // divide
+        } else if (operator.equals("/")) { // divide
             if ("0".equals(nextNum)) { // fist number is 0 when dividing
                 // remind the user if the first number is 0 within the operation of dividing
                 Toast.makeText(this, "dividend cannot be 0", Toast.LENGTH_SHORT).show();
@@ -171,9 +172,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else { // dividend is not 0
                 result = String.valueOf(CalculatingProcess.div(firstNum, nextNum));
             }
+        } else {
+            Log.d(TAG, "wrong=" + operator);
         }
         // print the result in the Log
-        Log.d(TAG, "result=" + result);
+       Log.d(TAG, "result=" + result);
         firstNum = result;
         nextNum = "";
         // true if successfully calculating
